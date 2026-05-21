@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free online calculators for finance, health, math, and everyday use. 150+ accurate calculators — no sign-up needed." />
+  <title>CalcHub – Free Online Calculators</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f4f0;
+      --surface: #ffffff;
+      --surface2: #fafaf8;
+      --border: #e6e2d9;
+      --text: #181816;
+      --muted: #78766e;
+      --accent: #2355e8;
+      --accent-light: #eef2fd;
+      --radius: 13px;
+      --shadow: 0 1px 8px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.09);
+      --shadow-lg: 0 10px 40px rgba(0,0,0,0.11);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(245,244,240,0.93);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      height: 58px; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      animation: slideDown 0.5s ease both;
+    }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo-icon { width: 30px; height: 30px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.85rem; font-weight: 800; flex-shrink: 0; }
+    .nav-center { display: flex; gap: 2px; }
+    .nav-center a { text-decoration: none; color: var(--muted); font-size: 0.83rem; font-weight: 500; padding: 5px 10px; border-radius: 7px; transition: background 0.15s, color 0.15s; white-space: nowrap; }
+    .nav-center a:hover { background: var(--border); color: var(--text); }
+    .nav-search { display: flex; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 9px; padding: 5px 10px; gap: 6px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .nav-search:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
+    .nav-search svg { flex-shrink: 0; color: var(--muted); }
+    .nav-search input { border: none; outline: none; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; color: var(--text); width: 148px; }
+    .nav-search input::placeholder { color: var(--muted); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 21px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.25s; }
+
+    /* mobile overlay */
+    .mob-overlay { display: none; position: fixed; inset: 0; z-index: 199; background: var(--bg); padding: 72px 20px 24px; flex-direction: column; overflow-y: auto; }
+    .mob-overlay.open { display: flex; animation: fadeUp 0.2s ease both; }
+    .mob-search { display: flex; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; gap: 8px; margin-bottom: 16px; }
+    .mob-search input { border: none; outline: none; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text); flex: 1; }
+    .mob-nav-links { display: flex; flex-direction: column; gap: 0; }
+    .mob-nav-links a { text-decoration: none; color: var(--text); font-size: 0.92rem; font-weight: 500; padding: 12px 0; border-bottom: 1px solid var(--border); }
+
+    /* ─── HERO ─── */
+    .hero { max-width: 780px; margin: 0 auto; padding: 60px 20px 44px; text-align: center; animation: fadeUp 0.65s 0.05s ease both; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 7px; background: var(--accent-light); color: var(--accent); font-size: 0.74rem; font-weight: 600; padding: 4px 12px; border-radius: 100px; margin-bottom: 18px; letter-spacing: 0.05em; }
+    .badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; flex-shrink: 0; }
+    .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.95rem, 5.5vw, 3.3rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.025em; margin-bottom: 15px; }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero p { font-size: 0.98rem; color: var(--muted); max-width: 440px; margin: 0 auto 28px; }
+    .hero-search-wrap { display: flex; align-items: center; background: var(--surface); border: 1.5px solid var(--border); border-radius: 12px; padding: 8px 8px 8px 15px; max-width: 450px; margin: 0 auto; box-shadow: var(--shadow-md); transition: border-color 0.2s, box-shadow 0.2s; }
+    .hero-search-wrap:focus-within { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-light); }
+    .hero-search-wrap input { flex: 1; border: none; outline: none; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; background: transparent; color: var(--text); min-width: 0; }
+    .hero-search-wrap input::placeholder { color: var(--muted); }
+    .hero-search-wrap button { background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 8px 15px; font-size: 0.83rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.18s, transform 0.1s; white-space: nowrap; }
+    .hero-search-wrap button:hover { background: #1944d4; }
+    .hero-search-wrap button:active { transform: scale(0.97); }
+    .hero-meta { display: flex; justify-content: center; gap: 28px; margin-top: 32px; flex-wrap: wrap; }
+    .hero-meta-item strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.35rem; font-weight: 800; color: var(--text); }
+    .hero-meta-item span { font-size: 0.75rem; color: var(--muted); }
+
+    /* ─── MAIN SECTION ─── */
+    .main { max-width: 1120px; margin: 0 auto; padding: 0 20px 64px; }
+    .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .section-head h2 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; }
+    .count-label { font-size: 0.78rem; color: var(--muted); }
+
+    /* filter tabs */
+    .filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 22px; }
+    .ftab { border: 1px solid var(--border); background: var(--surface); color: var(--muted); border-radius: 100px; padding: 5px 13px; font-size: 0.78rem; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; white-space: nowrap; }
+    .ftab:hover { border-color: var(--accent); color: var(--accent); }
+    .ftab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* grid */
+    .calc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(222px, 1fr)); gap: 12px; }
+    .calc-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 16px 14px;
+      text-decoration: none; color: var(--text);
+      display: flex; flex-direction: column; gap: 8px;
+      transition: transform 0.2s cubic-bezier(.34,1.5,.64,1), box-shadow 0.2s, border-color 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .calc-card::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+    .calc-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: #bfcffd; }
+    .calc-card-row { display: flex; align-items: center; gap: 10px; }
+    .calc-emoji { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .calc-card h3 { font-size: 0.86rem; font-weight: 600; line-height: 1.3; }
+    .calc-card p { font-size: 0.75rem; color: var(--muted); line-height: 1.55; flex: 1; }
+    .calc-badge { display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 2px 7px; border-radius: 100px; letter-spacing: 0.04em; margin-top: 2px; }
+    .b-finance  { background: #eef2fd; color: #2355e8; }
+    .b-health   { background: #f0fdf4; color: #15803d; }
+    .b-math     { background: #fefce8; color: #a16207; }
+    .b-date     { background: #fff7ed; color: #c2410c; }
+    .b-science  { background: #fdf4ff; color: #7c3aed; }
+    .b-convert  { background: #f0f9ff; color: #0369a1; }
+    .b-everyday { background: #fff1f2; color: #be123c; }
+
+    .no-results { display: none; text-align: center; padding: 56px 24px; color: var(--muted); grid-column: 1/-1; }
+    .no-results.show { display: block; }
+    .no-results strong { display: block; font-size: 1rem; color: var(--text); margin-bottom: 6px; }
+
+    /* ─── WHY SECTION ─── */
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px,1fr)); gap: 12px; margin-bottom: 52px; }
+    .why-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 18px; }
+    .why-icon { font-size: 1.35rem; margin-bottom: 9px; }
+    .why-card h3 { font-size: 0.86rem; font-weight: 600; margin-bottom: 4px; }
+    .why-card p { font-size: 0.76rem; color: var(--muted); line-height: 1.55; }
+
+    /* ─── ABOUT ─── */
+    .about-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px 28px; margin-bottom: 52px; }
+    .about-box h2 { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 800; margin-bottom: 10px; }
+    .about-box p { font-size: 0.85rem; color: var(--muted); line-height: 1.78; margin-bottom: 8px; }
+    .about-box p:last-child { margin-bottom: 0; }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 36px 24px 20px; }
+    .footer-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr repeat(3,1fr); gap: 28px; }
+    .footer-brand p { font-size: 0.79rem; color: var(--muted); margin-top: 9px; line-height: 1.65; max-width: 220px; }
+    .footer-col h4 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 13px; }
+    .footer-col a { display: block; font-size: 0.82rem; text-decoration: none; color: var(--text); margin-bottom: 7px; transition: color 0.15s; }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom { max-width: 1120px; margin: 24px auto 0; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.74rem; color: var(--muted); flex-wrap: wrap; gap: 8px; }
+    .footer-bottom a { color: var(--muted); text-decoration: none; margin-left: 14px; }
+    .footer-bottom a:hover { color: var(--accent); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeUp   { from { opacity: 0; transform: translateY(18px); }  to { opacity: 1; transform: none; } }
+    @keyframes pulse    { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 860px) {
+      .nav-center { display: none; }
+      .nav-search  { display: none; }
+      .hamburger   { display: flex; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px) {
+      .hero { padding: 44px 16px 36px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .footer-bottom a { margin-left: 0; margin-right: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-icon">C</div>CalcHub
+  </a>
+  <div class="nav-center">
+    <a href="#" onclick="filterTo('finance')">Finance</a>
+    <a href="#" onclick="filterTo('health')">Health</a>
+    <a href="#" onclick="filterTo('math')">Math</a>
+    <a href="#" onclick="filterTo('date')">Date & Time</a>
+    <a href="#" onclick="filterTo('convert')">Conversions</a>
+    <a href="#" onclick="filterTo('everyday')">Everyday</a>
+  </div>
+  <div class="nav-search">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="navQ" placeholder="Search calculators…" autocomplete="off" />
+  </div>
+  <button class="hamburger" id="hamBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE OVERLAY -->
+<div class="mob-overlay" id="mobOverlay">
+  <div class="mob-search">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#78766e" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="mobQ" placeholder="Search calculators…" autocomplete="off" />
+  </div>
+  <div class="mob-nav-links">
+    <a href="#" onclick="filterTo('finance');closeMob()">💰 Finance</a>
+    <a href="#" onclick="filterTo('health');closeMob()">❤️ Health</a>
+    <a href="#" onclick="filterTo('math');closeMob()">📐 Math</a>
+    <a href="#" onclick="filterTo('date');closeMob()">📅 Date & Time</a>
+    <a href="#" onclick="filterTo('convert');closeMob()">⚡ Conversions</a>
+    <a href="#" onclick="filterTo('science');closeMob()">🔬 Science</a>
+    <a href="#" onclick="filterTo('everyday');closeMob()">🌟 Everyday</a>
+    <a href="/about">About Us</a>
+    <a href="/contact">Contact</a>
+    <a href="/privacy">Privacy Policy</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge"><div class="badge-dot"></div> 150+ Free Calculators · No Sign-up</div>
+  <h1>Every Calculator<br/>You'll Ever <em>Need</em></h1>
+  <p>Finance, health, math, science, and everyday calculators — all free, all instant, all in one place.</p>
+  <div class="hero-search-wrap">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#78766e" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="heroQ" placeholder="Try 'mortgage', 'BMI', 'percentage'…" autocomplete="off" />
+    <button onclick="doSearch()">Search</button>
+  </div>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><strong>150+</strong><span>Calculators</span></div>
+    <div class="hero-meta-item"><strong>7</strong><span>Categories</span></div>
+    <div class="hero-meta-item"><strong>100%</strong><span>Free</span></div>
+    <div class="hero-meta-item"><strong>Zero</strong><span>Sign-up</span></div>
+  </div>
+</section>
+
+<!-- CALCULATORS -->
+<div class="main">
+  <div class="section-head">
+    <h2>All Calculators</h2>
+    <span class="count-label" id="countLabel">Showing 48 calculators</span>
+  </div>
+
+  <!-- Filter tabs -->
+  <div class="filters">
+    <button class="ftab active" data-f="all">All</button>
+    <button class="ftab" data-f="finance">💰 Finance</button>
+    <button class="ftab" data-f="health">❤️ Health</button>
+    <button class="ftab" data-f="math">📐 Math</button>
+    <button class="ftab" data-f="date">📅 Date & Time</button>
+    <button class="ftab" data-f="convert">⚡ Conversions</button>
+    <button class="ftab" data-f="science">🔬 Science</button>
+    <button class="ftab" data-f="everyday">🌟 Everyday</button>
+  </div>
+
+  <!-- Calculator cards -->
+  <div class="calc-grid" id="calcGrid">
+
+    <!-- FINANCE -->
+    <a href="/mortgage-calculator" class="calc-card" data-cat="finance" data-name="mortgage calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#eef2fd">🏠</div><h3>Mortgage Calculator</h3></div>
+      <p>Monthly payments, total interest, and full amortization schedule.</p>
+      <span class="calc-badge b-finance">Finance</span>
+    </a>
+    <a href="/loan-calculator" class="calc-card" data-cat="finance" data-name="loan calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#eef2fd">💳</div><h3>Loan Calculator</h3></div>
+      <p>Calculate monthly repayments and total cost for any loan.</p>
+      <span class="calc-badge b-finance">Finance</span>
+    </a>
+    <a href="/compound-interest-calculator" class="calc-card" data-cat="finance" data-name="compound interest calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#eef2fd">📈</div><h3>Compound Interest</h3></div>
+      <p>See how investments grow with compounding over time.</p>
+      <span class="calc-badge b-finance">Finance</span>
+    </a>
+    <a href="/tax-calculator" class="calc-card" data-cat="finance" data-name="tax calculator income tax">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#eef2fd">🧾</div><h3>Tax Calculator</h3></div>
+      <p>Estimate your income tax and take-home pay quickly.</p>
+      <span class="calc-badge b-finance">Finance</span>
+    </a>
+    <a href="/retirement-calculator" class="calc-card" data-cat="finance" data-name="retirement savings calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#eef2fd">🏦</div><h3>Retirement Calculator</h3></div>
+      <p>Plan your retirement savings and see when you can retire.</p>
+      <span class="calc-badge b-finance">Finance</span>
+    </a>
+    <a href="/roi-calculator" class="calc-card" data-cat="finance" data-name="roi return on investment calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#eef2fd">📊</div><h3>ROI Calculator</h3></div>
+      <p>Calculate return on investment for any business or project.</p>
+      <span class="calc-badge b-finance">Finance</span>
+    </a>
+    <a href="/auto-loan-calculator" class="calc-card" data-cat="finance" data-name="car auto loan calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#eef2fd">🚗</div><h3>Auto Loan Calculator</h3></div>
+      <p>Find monthly car payments and total interest for auto loans.</p>
+      <span class="calc-badge b-finance">Finance</span>
+    </a>
+    <a href="/salary-calculator" class="calc-card" data-cat="finance" data-name="salary hourly wage calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#eef2fd">💼</div><h3>Salary Calculator</h3></div>
+      <p>Convert hourly, weekly, monthly, and annual salary figures.</p>
+      <span class="calc-badge b-finance">Finance</span>
+    </a>
+
+    <!-- HEALTH -->
+    <a href="/bmi-calculator" class="calc-card" data-cat="health" data-name="bmi body mass index calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#f0fdf4">⚖️</div><h3>BMI Calculator</h3></div>
+      <p>Find your Body Mass Index and healthy weight range.</p>
+      <span class="calc-badge b-health">Health</span>
+    </a>
+    <a href="/calorie-calculator" class="calc-card" data-cat="health" data-name="calorie intake calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#f0fdf4">🔥</div><h3>Calorie Calculator</h3></div>
+      <p>Find your daily calorie needs based on age, weight, and activity.</p>
+      <span class="calc-badge b-health">Health</span>
+    </a>
+    <a href="/body-fat-calculator" class="calc-card" data-cat="health" data-name="body fat percentage calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#f0fdf4">💪</div><h3>Body Fat Calculator</h3></div>
+      <p>Estimate your body fat percentage using body measurements.</p>
+      <span class="calc-badge b-health">Health</span>
+    </a>
+    <a href="/pregnancy-calculator" class="calc-card" data-cat="health" data-name="pregnancy due date calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#f0fdf4">🤰</div><h3>Pregnancy Calculator</h3></div>
+      <p>Calculate due date, gestational age, and trimester milestones.</p>
+      <span class="calc-badge b-health">Health</span>
+    </a>
+    <a href="/sleep-calculator" class="calc-card" data-cat="health" data-name="sleep cycle calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#f0fdf4">😴</div><h3>Sleep Calculator</h3></div>
+      <p>Find the best bedtime and wake-up time for full sleep cycles.</p>
+      <span class="calc-badge b-health">Health</span>
+    </a>
+    <a href="/water-intake-calculator" class="calc-card" data-cat="health" data-name="water intake hydration calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#f0fdf4">💧</div><h3>Water Intake Calculator</h3></div>
+      <p>Calculate your daily water intake needs based on weight and activity.</p>
+      <span class="calc-badge b-health">Health</span>
+    </a>
+    <a href="/ideal-weight-calculator" class="calc-card" data-cat="health" data-name="ideal weight calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#f0fdf4">🎯</div><h3>Ideal Weight Calculator</h3></div>
+      <p>Find your ideal body weight range based on height and frame.</p>
+      <span class="calc-badge b-health">Health</span>
+    </a>
+    <a href="/heart-rate-calculator" class="calc-card" data-cat="health" data-name="target heart rate calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#f0fdf4">❤️</div><h3>Heart Rate Calculator</h3></div>
+      <p>Find your maximum and target heart rate zones for exercise.</p>
+      <span class="calc-badge b-health">Health</span>
+    </a>
+
+    <!-- MATH -->
+    <a href="/percentage-calculator" class="calc-card" data-cat="math" data-name="percentage calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fefce8">%</div><h3>Percentage Calculator</h3></div>
+      <p>Find percentages, increases, decreases, and differences instantly.</p>
+      <span class="calc-badge b-math">Math</span>
+    </a>
+    <a href="/fraction-calculator" class="calc-card" data-cat="math" data-name="fraction calculator add subtract multiply">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fefce8">½</div><h3>Fraction Calculator</h3></div>
+      <p>Add, subtract, multiply, and divide fractions with full steps.</p>
+      <span class="calc-badge b-math">Math</span>
+    </a>
+    <a href="/scientific-calculator" class="calc-card" data-cat="math" data-name="scientific calculator online">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fefce8">🧮</div><h3>Scientific Calculator</h3></div>
+      <p>Full scientific calculator with trigonometry, logarithms, and more.</p>
+      <span class="calc-badge b-math">Math</span>
+    </a>
+    <a href="/square-root-calculator" class="calc-card" data-cat="math" data-name="square root calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fefce8">√</div><h3>Square Root Calculator</h3></div>
+      <p>Calculate square roots and nth roots of any number.</p>
+      <span class="calc-badge b-math">Math</span>
+    </a>
+    <a href="/average-calculator" class="calc-card" data-cat="math" data-name="average mean median calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fefce8">📉</div><h3>Average Calculator</h3></div>
+      <p>Find mean, median, and mode for any set of numbers.</p>
+      <span class="calc-badge b-math">Math</span>
+    </a>
+    <a href="/random-number-generator" class="calc-card" data-cat="math" data-name="random number generator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fefce8">🎲</div><h3>Random Number Generator</h3></div>
+      <p>Generate random numbers within any range you choose.</p>
+      <span class="calc-badge b-math">Math</span>
+    </a>
+    <a href="/factor-calculator" class="calc-card" data-cat="math" data-name="factor prime factorization calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fefce8">🔢</div><h3>Factor Calculator</h3></div>
+      <p>Find all factors and prime factorization of any number.</p>
+      <span class="calc-badge b-math">Math</span>
+    </a>
+    <a href="/ratio-calculator" class="calc-card" data-cat="math" data-name="ratio proportion calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fefce8">⚖️</div><h3>Ratio Calculator</h3></div>
+      <p>Simplify ratios and solve proportion problems easily.</p>
+      <span class="calc-badge b-math">Math</span>
+    </a>
+
+    <!-- DATE & TIME -->
+    <a href="/age-calculator" class="calc-card" data-cat="date" data-name="age calculator birthday">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fff7ed">🎂</div><h3>Age Calculator</h3></div>
+      <p>Find exact age in years, months, and days from any date.</p>
+      <span class="calc-badge b-date">Date & Time</span>
+    </a>
+    <a href="/date-calculator" class="calc-card" data-cat="date" data-name="date difference calculator days between dates">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fff7ed">📅</div><h3>Date Calculator</h3></div>
+      <p>Count days between two dates or add/subtract from any date.</p>
+      <span class="calc-badge b-date">Date & Time</span>
+    </a>
+    <a href="/time-calculator" class="calc-card" data-cat="date" data-name="time duration calculator hours minutes">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fff7ed">⏱️</div><h3>Time Calculator</h3></div>
+      <p>Add or subtract time durations in hours, minutes, and seconds.</p>
+      <span class="calc-badge b-date">Date & Time</span>
+    </a>
+    <a href="/timezone-calculator" class="calc-card" data-cat="date" data-name="time zone converter calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fff7ed">🌍</div><h3>Time Zone Converter</h3></div>
+      <p>Convert times across all world time zones instantly.</p>
+      <span class="calc-badge b-date">Date & Time</span>
+    </a>
+    <a href="/days-until-calculator" class="calc-card" data-cat="date" data-name="days until countdown calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fff7ed">⏳</div><h3>Days Until Calculator</h3></div>
+      <p>Count how many days until any future date or event.</p>
+      <span class="calc-badge b-date">Date & Time</span>
+    </a>
+
+    <!-- CONVERSIONS -->
+    <a href="/length-converter" class="calc-card" data-cat="convert" data-name="length unit converter meters feet miles">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#f0f9ff">📏</div><h3>Length Converter</h3></div>
+      <p>Convert between meters, feet, inches, miles, km, and more.</p>
+      <span class="calc-badge b-convert">Conversions</span>
+    </a>
+    <a href="/weight-converter" class="calc-card" data-cat="convert" data-name="weight converter kg lbs pounds">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#f0f9ff">🏋️</div><h3>Weight Converter</h3></div>
+      <p>Convert kilograms, pounds, ounces, grams, and more.</p>
+      <span class="calc-badge b-convert">Conversions</span>
+    </a>
+    <a href="/temperature-converter" class="calc-card" data-cat="convert" data-name="temperature converter celsius fahrenheit kelvin">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#f0f9ff">🌡️</div><h3>Temperature Converter</h3></div>
+      <p>Convert Celsius, Fahrenheit, and Kelvin temperatures.</p>
+      <span class="calc-badge b-convert">Conversions</span>
+    </a>
+    <a href="/currency-converter" class="calc-card" data-cat="convert" data-name="currency exchange rate converter usd eur">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#f0f9ff">💱</div><h3>Currency Converter</h3></div>
+      <p>Live exchange rates between 150+ world currencies.</p>
+      <span class="calc-badge b-convert">Conversions</span>
+    </a>
+    <a href="/speed-converter" class="calc-card" data-cat="convert" data-name="speed converter mph kmh knots">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#f0f9ff">🚀</div><h3>Speed Converter</h3></div>
+      <p>Convert mph, km/h, knots, m/s, and other speed units.</p>
+      <span class="calc-badge b-convert">Conversions</span>
+    </a>
+    <a href="/volume-converter" class="calc-card" data-cat="convert" data-name="volume converter liters gallons cups">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#f0f9ff">🧪</div><h3>Volume Converter</h3></div>
+      <p>Convert liters, gallons, cups, fluid ounces, and more.</p>
+      <span class="calc-badge b-convert">Conversions</span>
+    </a>
+
+    <!-- SCIENCE -->
+    <a href="/ohms-law-calculator" class="calc-card" data-cat="science" data-name="ohms law voltage current resistance calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fdf4ff">⚡</div><h3>Ohm's Law Calculator</h3></div>
+      <p>Calculate voltage, current, and resistance using Ohm's Law.</p>
+      <span class="calc-badge b-science">Science</span>
+    </a>
+    <a href="/density-calculator" class="calc-card" data-cat="science" data-name="density mass volume calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fdf4ff">🔬</div><h3>Density Calculator</h3></div>
+      <p>Calculate density, mass, or volume given the other two values.</p>
+      <span class="calc-badge b-science">Science</span>
+    </a>
+    <a href="/force-calculator" class="calc-card" data-cat="science" data-name="force mass acceleration newtons calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fdf4ff">🌀</div><h3>Force Calculator</h3></div>
+      <p>Calculate force, mass, or acceleration using Newton's second law.</p>
+      <span class="calc-badge b-science">Science</span>
+    </a>
+    <a href="/half-life-calculator" class="calc-card" data-cat="science" data-name="half life radioactive decay calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fdf4ff">☢️</div><h3>Half-Life Calculator</h3></div>
+      <p>Calculate radioactive decay and remaining quantity over time.</p>
+      <span class="calc-badge b-science">Science</span>
+    </a>
+
+    <!-- EVERYDAY -->
+    <a href="/tip-calculator" class="calc-card" data-cat="everyday" data-name="tip calculator restaurant bill split">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fff1f2">🍽️</div><h3>Tip Calculator</h3></div>
+      <p>Calculate tips and split bills between any number of people.</p>
+      <span class="calc-badge b-everyday">Everyday</span>
+    </a>
+    <a href="/discount-calculator" class="calc-card" data-cat="everyday" data-name="discount sale price calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fff1f2">🏷️</div><h3>Discount Calculator</h3></div>
+      <p>Find sale prices and savings for any discount percentage.</p>
+      <span class="calc-badge b-everyday">Everyday</span>
+    </a>
+    <a href="/fuel-cost-calculator" class="calc-card" data-cat="everyday" data-name="fuel cost gas mileage trip calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fff1f2">⛽</div><h3>Fuel Cost Calculator</h3></div>
+      <p>Estimate trip fuel costs based on distance and fuel efficiency.</p>
+      <span class="calc-badge b-everyday">Everyday</span>
+    </a>
+    <a href="/gpa-calculator" class="calc-card" data-cat="everyday" data-name="gpa grade calculator student">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fff1f2">🎓</div><h3>GPA Calculator</h3></div>
+      <p>Calculate your GPA from course grades and credit hours.</p>
+      <span class="calc-badge b-everyday">Everyday</span>
+    </a>
+    <a href="/concrete-calculator" class="calc-card" data-cat="everyday" data-name="concrete volume calculator slabs">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fff1f2">🧱</div><h3>Concrete Calculator</h3></div>
+      <p>Estimate concrete volume needed for slabs, walls, and footings.</p>
+      <span class="calc-badge b-everyday">Everyday</span>
+    </a>
+    <a href="/grade-calculator" class="calc-card" data-cat="everyday" data-name="grade final exam score calculator">
+      <div class="calc-card-row"><div class="calc-emoji" style="background:#fff1f2">📝</div><h3>Grade Calculator</h3></div>
+      <p>Find your final grade or the score needed to pass an exam.</p>
+      <span class="calc-badge b-everyday">Everyday</span>
+    </a>
+
+    <!-- No results placeholder -->
+    <div class="no-results" id="noResults">
+      <strong>No calculators found</strong>
+      Try a different keyword — or <a href="/suggest" style="color:var(--accent)">suggest one</a>.
+    </div>
+  </div>
+
+  <!-- WHY CALCHUB -->
+  <div style="margin-top:52px;" class="reveal">
+    <div class="section-head"><h2>Why CalcHub?</h2></div>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-icon">⚡</div><h3>Instant Results</h3><p>Results update live as you type — no button press needed.</p></div>
+      <div class="why-card"><div class="why-icon">📱</div><h3>Works Everywhere</h3><p>Fully responsive on phone, tablet, and desktop.</p></div>
+      <div class="why-card"><div class="why-icon">🔒</div><h3>Private & Secure</h3><p>No data stored. All calculations run in your browser only.</p></div>
+      <div class="why-card"><div class="why-icon">🆓</div><h3>Always Free</h3><p>No subscriptions, no sign-up, no hidden fees. Free forever.</p></div>
+      <div class="why-card"><div class="why-icon">🎯</div><h3>Verified Accurate</h3><p>Every formula is carefully verified for precision and reliability.</p></div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="about-box reveal" style="margin-top:48px;">
+    <h2>About CalcHub</h2>
+    <p>CalcHub is a free online calculator resource built to help everyone solve everyday calculations quickly and accurately. Whether you're planning a mortgage, checking your BMI, converting units, or splitting a restaurant bill — CalcHub has the right tool for you.</p>
+    <p>All 150+ calculators are completely free, require no account, and run entirely in your browser for complete privacy. We cover finance, health, mathematics, science, date and time, unit conversions, and everyday tools.</p>
+    <p>Our mission is simple: make complex calculations accessible to everyone — students, professionals, homeowners, and anyone in between.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo"><div class="nav-logo-icon">C</div> CalcHub</a>
+      <p>Free online calculators for finance, health, math, and everyday use. Always free, always accurate.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Finance</h4>
+      <a href="/mortgage-calculator">Mortgage Calculator</a>
+      <a href="/loan-calculator">Loan Calculator</a>
+      <a href="/compound-interest-calculator">Compound Interest</a>
+      <a href="/tax-calculator">Tax Calculator</a>
+      <a href="/retirement-calculator">Retirement Calculator</a>
+    </div>
+    <div class="footer-col">
+      <h4>Health & Math</h4>
+      <a href="/bmi-calculator">BMI Calculator</a>
+      <a href="/calorie-calculator">Calorie Calculator</a>
+      <a href="/percentage-calculator">Percentage Calculator</a>
+      <a href="/age-calculator">Age Calculator</a>
+      <a href="/scientific-calculator">Scientific Calculator</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/about">About Us</a>
+      <a href="/contact">Contact Us</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Use</a>
+      <a href="/sitemap">Sitemap</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 CalcHub. All rights reserved.</span>
+    <div>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Use</a>
+      <a href="/contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Hamburger ──
+  const hamBtn = document.getElementById('hamBtn');
+  const mobOverlay = document.getElementById('mobOverlay');
+  hamBtn.addEventListener('click', () => mobOverlay.classList.toggle('open'));
+  function closeMob() { mobOverlay.classList.remove('open'); }
+
+  // ── State ──
+  const cards = Array.from(document.querySelectorAll('.calc-card'));
+  const noResults = document.getElementById('noResults');
+  const countLabel = document.getElementById('countLabel');
+  let activeFilter = 'all';
+  let searchQ = '';
+
+  function updateCards() {
+    let visible = 0;
+    cards.forEach((card, i) => {
+      const cat = card.dataset.cat;
+      const name = card.dataset.name.toLowerCase();
+      const title = card.querySelector('h3').textContent.toLowerCase();
+      const matchF = activeFilter === 'all' || cat === activeFilter;
+      const matchS = searchQ === '' || name.includes(searchQ) || title.includes(searchQ);
+      const show = matchF && matchS;
+      card.style.display = show ? '' : 'none';
+      if (show) {
+        card.style.animationDelay = (visible * 0.025) + 's';
+        visible++;
+      }
+    });
+    noResults.classList.toggle('show', visible === 0);
+    countLabel.textContent = `Showing ${visible} calculator${visible !== 1 ? 's' : ''}${searchQ ? ' for "' + searchQ + '"' : ''}`;
+  }
+
+  // ── Filter tabs ──
+  document.querySelectorAll('.ftab').forEach(tab => {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      activeFilter = this.dataset.f;
+      updateCards();
+    });
+  });
+
+  function filterTo(cat) {
+    activeFilter = cat;
+    document.querySelectorAll('.ftab').forEach(t => {
+      t.classList.toggle('active', t.dataset.f === cat);
+    });
+    updateCards();
+    document.getElementById('calcGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── Search ──
+  function doSearch() {
+    searchQ = document.getElementById('heroQ').value.trim().toLowerCase();
+    document.getElementById('calcGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    updateCards();
+  }
+
+  function wireSearch(id, scrollOnInput) {
+    const el = document.getElementById(id);
+    el.addEventListener('input', function () {
+      searchQ = this.value.trim().toLowerCase();
+      // sync all search boxes
+      ['heroQ','navQ','mobQ'].forEach(sid => {
+        if (sid !== id) document.getElementById(sid).value = this.value;
+      });
+      updateCards();
+      if (scrollOnInput && this.value) {
+        document.getElementById('calcGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+    el.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+  }
+  wireSearch('heroQ', false);
+  wireSearch('navQ', true);
+  wireSearch('mobQ', false);
+
+  // ── Scroll reveal ──
+  const revObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); } });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+  // ── Stagger initial load ──
+  cards.forEach((c, i) => { c.style.animationDelay = (i * 0.022) + 's'; });
+</script>
+</body>
+</html>
