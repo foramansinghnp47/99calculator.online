@@ -1,0 +1,12 @@
+# robots.txt for 99calculator.online
+# Generated for CalcHub — https://99calculator.online
+
+User-agent: *
+Allow: /
+
+# Block any admin or private paths (add more if needed)
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemap location
+Sitemap: https://99calculator.online/sitemap.xml
