@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | CalcHub</title>
+  <meta name="description" content="Contact CalcHub. Report a bug, suggest a new calculator, or ask a question. We'd love to hear from you." />
+  <link rel="canonical" href="https://yourcalchub.com/contact" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #f5f4f0; --surface: #ffffff; --border: #e6e2d9; --text: #181816; --muted: #78766e; --accent: #2355e8; --accent-light: #eef2fd; --green: #15803d; --green-light: #f0fdf4; --radius: 13px; --shadow: 0 1px 8px rgba(0,0,0,0.06); --shadow-md: 0 4px 20px rgba(0,0,0,0.09); }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 200; background: rgba(245,244,240,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); height: 58px; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; animation: slideDown 0.5s ease both; }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo-icon { width: 30px; height: 30px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.85rem; font-weight: 800; flex-shrink: 0; }
+    .nav-center { display: flex; gap: 2px; }
+    .nav-center a { text-decoration: none; color: var(--muted); font-size: 0.83rem; font-weight: 500; padding: 5px 10px; border-radius: 7px; transition: background 0.15s, color 0.15s; }
+    .nav-center a:hover { background: var(--border); color: var(--text); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 21px; height: 2px; background: var(--text); border-radius: 2px; }
+    .mob-overlay { display: none; position: fixed; inset: 0; z-index: 199; background: var(--bg); padding: 72px 20px 24px; flex-direction: column; overflow-y: auto; }
+    .mob-overlay.open { display: flex; animation: fadeUp 0.2s ease both; }
+    .mob-nav-links a { text-decoration: none; color: var(--text); font-size: 0.92rem; font-weight: 500; padding: 12px 0; border-bottom: 1px solid var(--border); display: block; }
+
+    /* BREADCRUMB */
+    .breadcrumb { max-width: 900px; margin: 0 auto; padding: 14px 20px 0; display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--muted); }
+    .breadcrumb a { color: var(--muted); text-decoration: none; } .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb span { color: var(--border); }
+
+    /* PAGE HEADER */
+    .page-header { max-width: 900px; margin: 0 auto; padding: 32px 20px 24px; text-align: center; animation: fadeUp 0.5s ease both; }
+    .page-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-light); color: var(--accent); font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 100px; margin-bottom: 12px; letter-spacing: 0.05em; }
+    .page-header h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.7rem, 4.5vw, 2.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 10px; }
+    .page-header h1 em { font-style: normal; color: var(--accent); }
+    .page-header p { font-size: 0.93rem; color: var(--muted); max-width: 440px; margin: 0 auto; }
+
+    /* LAYOUT */
+    .contact-layout { max-width: 900px; margin: 28px auto 64px; padding: 0 20px; display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
+
+    /* FORM CARD */
+    .form-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px; box-shadow: var(--shadow); animation: fadeUp 0.5s 0.05s ease both; }
+    .form-card h2 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; margin-bottom: 22px; }
+
+    /* subject tabs */
+    .subject-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 22px; }
+    .stab { border: 1.5px solid var(--border); background: var(--bg); border-radius: 8px; padding: 6px 12px; font-family: 'DM Sans', sans-serif; font-size: 0.77rem; font-weight: 600; color: var(--muted); cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 5px; }
+    .stab:hover { border-color: var(--accent); color: var(--accent); }
+    .stab.active { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+
+    /* fields */
+    .field { margin-bottom: 18px; }
+    .field label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 6px; }
+    .field input, .field textarea, .field select {
+      width: 100%; border: 1.5px solid var(--border); border-radius: 9px;
+      padding: 10px 13px; font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem; color: var(--text); background: var(--bg);
+      outline: none; transition: border-color 0.18s, box-shadow 0.18s;
+      resize: none;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); background: var(--surface); }
+    .field input::placeholder, .field textarea::placeholder { color: var(--muted); }
+    .field textarea { min-height: 130px; line-height: 1.6; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .char-count { font-size: 0.72rem; color: var(--muted); text-align: right; margin-top: 4px; }
+
+    /* submit btn */
+    .submit-btn { width: 100%; padding: 13px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.18s, transform 0.1s; letter-spacing: 0.01em; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .submit-btn:hover { background: #1944d4; }
+    .submit-btn:active { transform: scale(0.99); }
+    .submit-btn.loading { opacity: 0.7; cursor: not-allowed; }
+
+    /* success state */
+    .success-state { display: none; text-align: center; padding: 32px 16px; }
+    .success-state.show { display: block; animation: fadeUp 0.4s ease both; }
+    .success-icon { font-size: 3rem; margin-bottom: 14px; }
+    .success-state h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
+    .success-state p { font-size: 0.85rem; color: var(--muted); margin-bottom: 18px; }
+    .success-state a { color: var(--accent); text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+
+    /* INFO SIDEBAR */
+    .info-col { display: flex; flex-direction: column; gap: 12px; animation: fadeUp 0.5s 0.1s ease both; }
+    .info-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 18px; }
+    .info-card h3 { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 7px; }
+    .info-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.7; margin-bottom: 8px; }
+    .info-card p:last-child { margin-bottom: 0; }
+    .info-card a { color: var(--accent); text-decoration: none; font-size: 0.8rem; }
+    .info-card a:hover { text-decoration: underline; }
+
+    .response-times { display: flex; flex-direction: column; gap: 8px; }
+    .rt-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 0.78rem; }
+    .rt-row:last-child { border-bottom: none; }
+    .rt-row span:first-child { color: var(--muted); }
+    .rt-row span:last-child { font-weight: 600; color: var(--text); }
+    .rt-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 5px; }
+    .dot-green { background: #22c55e; }
+    .dot-yellow { background: #eab308; }
+
+    .quick-links { display: flex; flex-direction: column; gap: 6px; }
+    .quick-link { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 9px; padding: 9px 12px; font-size: 0.8rem; font-weight: 500; transition: border-color 0.15s, box-shadow 0.15s; }
+    .quick-link:hover { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-light); color: var(--accent); }
+    .quick-link span { font-size: 1rem; }
+
+    /* FOOTER */
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 36px 24px 20px; }
+    .footer-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr repeat(3,1fr); gap: 28px; }
+    .footer-brand p { font-size: 0.79rem; color: var(--muted); margin-top: 9px; line-height: 1.65; max-width: 220px; }
+    .footer-col h4 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 13px; }
+    .footer-col a { display: block; font-size: 0.82rem; text-decoration: none; color: var(--text); margin-bottom: 7px; transition: color 0.15s; }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom { max-width: 1120px; margin: 24px auto 0; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.74rem; color: var(--muted); flex-wrap: wrap; gap: 8px; }
+    .footer-bottom a { color: var(--muted); text-decoration: none; margin-left: 14px; }
+    .footer-bottom a:hover { color: var(--accent); }
+
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeUp   { from { opacity: 0; transform: translateY(18px); }  to { opacity: 1; transform: none; } }
+
+    @media (max-width: 860px) {
+      .nav-center { display: none; } .hamburger { display: flex; }
+      .contact-layout { grid-template-columns: 1fr; }
+      .info-col { display: grid; grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .field-row { grid-template-columns: 1fr; }
+      .info-col { grid-template-columns: 1fr; }
+      .subject-tabs .stab { font-size: 0.72rem; padding: 5px 9px; }
+    }
+    @media (max-width: 440px) { .footer-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><div class="nav-logo-icon">C</div>CalcHub</a>
+  <div class="nav-center">
+    <a href="/#finance">Finance</a><a href="/#health">Health</a>
+    <a href="/#math">Math</a><a href="/#date">Date & Time</a><a href="/#convert">Conversions</a>
+  </div>
+  <button class="hamburger" id="hamBtn"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-overlay" id="mobOverlay">
+  <div class="mob-nav-links">
+    <a href="/">🏠 All Calculators</a><a href="/#finance">💰 Finance</a>
+    <a href="/#health">❤️ Health</a><a href="/about">About</a><a href="/contact">Contact</a>
+  </div>
+</div>
+
+<div class="breadcrumb"><a href="/">Home</a><span>›</span><span>Contact Us</span></div>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="page-badge">✉️ Contact</div>
+  <h1>Get in <em>Touch</em></h1>
+  <p>Have a question, suggestion, or found a bug? We read every message and reply within 48 hours.</p>
+</div>
+
+<!-- LAYOUT -->
+<div class="contact-layout">
+
+  <!-- FORM -->
+  <div class="form-card">
+    <h2>Send Us a Message</h2>
+
+    <!-- Subject quick select -->
+    <div class="subject-tabs">
+      <button class="stab active" onclick="setSubject(this,'General Question')">💬 General</button>
+      <button class="stab" onclick="setSubject(this,'Bug Report')">🐛 Bug Report</button>
+      <button class="stab" onclick="setSubject(this,'Calculator Suggestion')">💡 Suggest a Calculator</button>
+      <button class="stab" onclick="setSubject(this,'Business Inquiry')">💼 Business</button>
+      <button class="stab" onclick="setSubject(this,'Other')">📋 Other</button>
+    </div>
+
+    <!-- Form body -->
+    <div id="formBody">
+      <div class="field-row">
+        <div class="field">
+          <label for="fname">First Name *</label>
+          <input type="text" id="fname" placeholder="John" autocomplete="given-name" />
+        </div>
+        <div class="field">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" placeholder="Smith" autocomplete="family-name" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" placeholder="john@example.com" autocomplete="email" />
+      </div>
+
+      <div class="field">
+        <label for="subject">Subject *</label>
+        <input type="text" id="subject" placeholder="What is your message about?" value="General Question" />
+      </div>
+
+      <div class="field">
+        <label for="message">Message *</label>
+        <textarea id="message" placeholder="Tell us what's on your mind. The more detail you provide, the better we can help…" maxlength="2000" oninput="updateCount()"></textarea>
+        <div class="char-count"><span id="charCount">0</span> / 2000 characters</div>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" onclick="submitForm()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Send Message
+      </button>
+    </div>
+
+    <!-- Success state -->
+    <div class="success-state" id="successState">
+      <div class="success-icon">✅</div>
+      <h3>Message Sent!</h3>
+      <p>Thank you for reaching out. We've received your message and will get back to you within 48 hours at the email address you provided.</p>
+      <a href="/" onclick="resetForm(); return false;">← Back to Calculators</a>
+    </div>
+  </div>
+
+  <!-- INFO SIDEBAR -->
+  <div class="info-col">
+
+    <div class="info-card">
+      <h3>⏱️ Response Times</h3>
+      <div class="response-times">
+        <div class="rt-row"><span>General questions</span><span><span class="rt-dot dot-green"></span>Within 48 hrs</span></div>
+        <div class="rt-row"><span>Bug reports</span><span><span class="rt-dot dot-green"></span>Within 24 hrs</span></div>
+        <div class="rt-row"><span>Calculator suggestions</span><span><span class="rt-dot dot-yellow"></span>Within 5 days</span></div>
+        <div class="rt-row"><span>Business inquiries</span><span><span class="rt-dot dot-green"></span>Within 48 hrs</span></div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3>📧 Direct Contact</h3>
+      <p>Prefer to email directly? Reach us at:</p>
+      <p><a href="mailto:hello@yourcalchub.com">hello@yourcalchub.com</a></p>
+      <p style="margin-top:8px;">For privacy questions:<br/><a href="mailto:privacy@yourcalchub.com">privacy@yourcalchub.com</a></p>
+    </div>
+
+    <div class="info-card">
+      <h3>🔗 Quick Links</h3>
+      <div class="quick-links">
+        <a href="/about" class="quick-link"><span>👋</span> About CalcHub</a>
+        <a href="/privacy" class="quick-link"><span>🔒</span> Privacy Policy</a>
+        <a href="/terms" class="quick-link"><span>📋</span> Terms of Use</a>
+        <a href="/" class="quick-link"><span>🧮</span> All Calculators</a>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3>💡 Before You Write</h3>
+      <p>Looking for how a calculator works? Each calculator page has a detailed explanation section with formulas and examples.</p>
+      <p>Found a wrong answer? Please include the exact inputs you used so we can reproduce and fix the issue quickly.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo"><div class="nav-logo-icon">C</div> CalcHub</a>
+      <p>Free online calculators for finance, health, math, and everyday use.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Finance</h4>
+      <a href="/mortgage-calculator">Mortgage Calculator</a>
+      <a href="/loan-calculator">Loan Calculator</a>
+      <a href="/compound-interest-calculator">Compound Interest</a>
+      <a href="/tax-calculator">Tax Calculator</a>
+    </div>
+    <div class="footer-col">
+      <h4>Health & Math</h4>
+      <a href="/bmi-calculator">BMI Calculator</a>
+      <a href="/calorie-calculator">Calorie Calculator</a>
+      <a href="/percentage-calculator">Percentage Calculator</a>
+      <a href="/age-calculator">Age Calculator</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/about">About Us</a><a href="/contact">Contact Us</a>
+      <a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Use</a>
+      <a href="/sitemap">Sitemap</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 CalcHub. All rights reserved.</span>
+    <div><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Use</a><a href="/contact">Contact</a></div>
+  </div>
+</footer>
+
+<script>
+  // NAV
+  document.getElementById('hamBtn').addEventListener('click', () => {
+    document.getElementById('mobOverlay').classList.toggle('open');
+  });
+
+  // SUBJECT TABS
+  function setSubject(btn, subject) {
+    document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('subject').value = subject;
+  }
+
+  // CHAR COUNT
+  function updateCount() {
+    const len = document.getElementById('message').value.length;
+    document.getElementById('charCount').textContent = len;
+  }
+
+  // FORM SUBMIT
+  function submitForm() {
+    const fname   = document.getElementById('fname').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const subject = document.getElementById('subject').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    // basic validation
+    if (!fname) { alert('Please enter your first name.'); return; }
+    if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+    if (!subject) { alert('Please enter a subject.'); return; }
+    if (message.length < 10) { alert('Please enter a message (at least 10 characters).'); return; }
+
+    // simulate sending
+    const btn = document.getElementById('submitBtn');
+    btn.classList.add('loading');
+    btn.textContent = 'Sending…';
+
+    setTimeout(() => {
+      document.getElementById('formBody').style.display = 'none';
+      document.getElementById('successState').classList.add('show');
+    }, 1200);
+  }
+
+  function resetForm() {
+    document.getElementById('formBody').style.display = 'block';
+    document.getElementById('successState').classList.remove('show');
+    document.getElementById('submitBtn').classList.remove('loading');
+    document.getElementById('submitBtn').innerHTML = `
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Send Message`;
+    ['fname','lname','email','message'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('subject').value = 'General Question';
+    document.getElementById('charCount').textContent = '0';
+  }
+</script>
+</body>
+</html>

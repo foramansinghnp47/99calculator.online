@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Use | CalcHub</title>
+  <meta name="description" content="CalcHub Terms of Use. Read the terms and conditions governing your use of our free online calculators." />
+  <link rel="canonical" href="https://yourcalchub.com/terms" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #f5f4f0; --surface: #ffffff; --border: #e6e2d9; --text: #181816; --muted: #78766e; --accent: #2355e8; --accent-light: #eef2fd; --radius: 13px; --shadow: 0 1px 8px rgba(0,0,0,0.06); }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    nav { position: sticky; top: 0; z-index: 200; background: rgba(245,244,240,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); height: 58px; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; animation: slideDown 0.5s ease both; }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo-icon { width: 30px; height: 30px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.85rem; font-weight: 800; flex-shrink: 0; }
+    .nav-center { display: flex; gap: 2px; }
+    .nav-center a { text-decoration: none; color: var(--muted); font-size: 0.83rem; font-weight: 500; padding: 5px 10px; border-radius: 7px; transition: background 0.15s, color 0.15s; }
+    .nav-center a:hover { background: var(--border); color: var(--text); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 21px; height: 2px; background: var(--text); border-radius: 2px; }
+    .mob-overlay { display: none; position: fixed; inset: 0; z-index: 199; background: var(--bg); padding: 72px 20px 24px; flex-direction: column; overflow-y: auto; }
+    .mob-overlay.open { display: flex; animation: fadeUp 0.2s ease both; }
+    .mob-nav-links a { text-decoration: none; color: var(--text); font-size: 0.92rem; font-weight: 500; padding: 12px 0; border-bottom: 1px solid var(--border); display: block; }
+    .breadcrumb { max-width: 800px; margin: 0 auto; padding: 14px 20px 0; display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--muted); }
+    .breadcrumb a { color: var(--muted); text-decoration: none; } .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb span { color: var(--border); }
+    .page-wrap { max-width: 800px; margin: 0 auto; padding: 28px 20px 64px; }
+    .page-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-light); color: var(--accent); font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 100px; margin-bottom: 12px; letter-spacing: 0.05em; }
+    .page-wrap h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 8px; animation: fadeUp 0.5s ease both; }
+    .last-updated { font-size: 0.78rem; color: var(--muted); margin-bottom: 32px; }
+    .content-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 32px; box-shadow: var(--shadow); animation: fadeUp 0.5s 0.05s ease both; }
+    .content-card h2 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 800; margin: 28px 0 10px; }
+    .content-card h2:first-child { margin-top: 0; }
+    .content-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+    .content-card ul { padding-left: 20px; margin-bottom: 12px; }
+    .content-card li { font-size: 0.88rem; color: var(--muted); line-height: 1.8; margin-bottom: 4px; }
+    .content-card a { color: var(--accent); text-decoration: none; } .content-card a:hover { text-decoration: underline; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+    .warning-box { background: #fff7ed; border-left: 3px solid #f59e0b; border-radius: 0 8px 8px 0; padding: 14px 16px; margin: 16px 0; }
+    .warning-box p { color: #92400e; margin-bottom: 0; font-size: 0.85rem; }
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 36px 24px 20px; }
+    .footer-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr repeat(3,1fr); gap: 28px; }
+    .footer-brand p { font-size: 0.79rem; color: var(--muted); margin-top: 9px; line-height: 1.65; max-width: 220px; }
+    .footer-col h4 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 13px; }
+    .footer-col a { display: block; font-size: 0.82rem; text-decoration: none; color: var(--text); margin-bottom: 7px; transition: color 0.15s; }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom { max-width: 1120px; margin: 24px auto 0; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.74rem; color: var(--muted); flex-wrap: wrap; gap: 8px; }
+    .footer-bottom a { color: var(--muted); text-decoration: none; margin-left: 14px; }
+    .footer-bottom a:hover { color: var(--accent); }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeUp   { from { opacity: 0; transform: translateY(18px); }  to { opacity: 1; transform: none; } }
+    @media (max-width: 860px) { .nav-center { display: none; } .hamburger { display: flex; } }
+    @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr 1fr; } .content-card { padding: 20px; } }
+    @media (max-width: 440px) { .footer-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo"><div class="nav-logo-icon">C</div>CalcHub</a>
+  <div class="nav-center">
+    <a href="/#finance">Finance</a><a href="/#health">Health</a>
+    <a href="/#math">Math</a><a href="/#date">Date & Time</a><a href="/#convert">Conversions</a>
+  </div>
+  <button class="hamburger" id="hamBtn"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-overlay" id="mobOverlay">
+  <div class="mob-nav-links">
+    <a href="/">🏠 All Calculators</a><a href="/#finance">💰 Finance</a>
+    <a href="/#health">❤️ Health</a><a href="/about">About</a><a href="/contact">Contact</a>
+  </div>
+</div>
+
+<div class="breadcrumb">
+  <a href="/">Home</a><span>›</span><span>Terms of Use</span>
+</div>
+
+<div class="page-wrap">
+  <div class="page-badge">📋 Legal</div>
+  <h1>Terms of Use</h1>
+  <p class="last-updated">Last updated: May 21, 2026</p>
+
+  <div class="content-card">
+    <div class="warning-box">
+      <p><strong>Important:</strong> CalcHub calculators are provided for informational and educational purposes only. Results should not be used as a substitute for professional financial, medical, legal, or other advice. Always consult a qualified professional for important decisions.</p>
+    </div>
+
+    <h2>1. Acceptance of Terms</h2>
+    <p>By accessing and using CalcHub ("the website", "we", "us"), located at yourcalchub.com, you accept and agree to be bound by these Terms of Use and our Privacy Policy. If you do not agree to these terms, please do not use our website.</p>
+
+    <hr class="divider" />
+
+    <h2>2. Use of the Website</h2>
+    <p>CalcHub grants you a limited, non-exclusive, non-transferable license to use our website for personal, non-commercial purposes. You agree to use the website only for lawful purposes and in a way that does not infringe the rights of others.</p>
+    <p>You may not:</p>
+    <ul>
+      <li>Copy, modify, or distribute any content from CalcHub without written permission</li>
+      <li>Use automated tools to scrape or extract data from our website</li>
+      <li>Attempt to gain unauthorised access to any part of our website</li>
+      <li>Use our website in any way that could damage, disable, or impair its functionality</li>
+      <li>Reproduce our calculators or tools on another website without permission</li>
+    </ul>
+
+    <hr class="divider" />
+
+    <h2>3. Accuracy of Calculator Results</h2>
+    <p>While we strive to ensure all calculators are accurate and up to date, CalcHub makes no warranty or guarantee regarding the accuracy, completeness, or reliability of any calculation results. Calculator outputs are estimates based on the information you provide and standard mathematical formulas.</p>
+    <p>Results from our calculators:</p>
+    <ul>
+      <li>Are for informational and educational purposes only</li>
+      <li>Should not be relied upon for making important financial, medical, legal, or other decisions</li>
+      <li>May not account for all factors relevant to your specific situation</li>
+      <li>May not reflect current laws, rates, or regulations in your region</li>
+    </ul>
+
+    <hr class="divider" />
+
+    <h2>4. No Professional Advice</h2>
+    <p>Nothing on CalcHub constitutes professional advice of any kind. Our finance calculators are not financial advice. Our health calculators are not medical advice. Our legal-related tools are not legal advice.</p>
+    <p>Always consult a qualified professional — such as a licensed financial advisor, doctor, lawyer, or accountant — before making important decisions based on calculation results.</p>
+
+    <hr class="divider" />
+
+    <h2>5. Intellectual Property</h2>
+    <p>All content on CalcHub, including but not limited to text, calculator designs, graphics, logos, and code, is the intellectual property of CalcHub and is protected by applicable copyright and intellectual property laws.</p>
+    <p>You may not reproduce, republish, distribute, or create derivative works from our content without express written permission.</p>
+
+    <hr class="divider" />
+
+    <h2>6. Disclaimer of Warranties</h2>
+    <p>CalcHub is provided "as is" and "as available" without warranties of any kind, express or implied. We do not warrant that the website will be uninterrupted, error-free, or free of viruses or harmful components. We disclaim all warranties including merchantability, fitness for a particular purpose, and non-infringement.</p>
+
+    <hr class="divider" />
+
+    <h2>7. Limitation of Liability</h2>
+    <p>To the fullest extent permitted by law, CalcHub and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the website, including any reliance on calculator results.</p>
+
+    <hr class="divider" />
+
+    <h2>8. Third-Party Links and Advertising</h2>
+    <p>Our website may contain links to third-party websites and display advertisements served by Google AdSense. We are not responsible for the content, privacy practices, or accuracy of any third-party website. The presence of an advertisement does not constitute our endorsement of the advertised product or service.</p>
+
+    <hr class="divider" />
+
+    <h2>9. Changes to Terms</h2>
+    <p>We reserve the right to modify these Terms of Use at any time. Changes will be effective immediately upon posting to this page. Your continued use of CalcHub after any changes constitutes acceptance of the new terms. We encourage you to review these terms periodically.</p>
+
+    <hr class="divider" />
+
+    <h2>10. Governing Law</h2>
+    <p>These Terms of Use shall be governed by and construed in accordance with applicable laws. Any disputes arising from these terms or your use of the website shall be subject to the exclusive jurisdiction of the relevant courts.</p>
+
+    <hr class="divider" />
+
+    <h2>11. Contact Us</h2>
+    <p>If you have questions about these Terms of Use, please contact us:</p>
+    <ul>
+      <li>Website: <a href="/contact">yourcalchub.com/contact</a></li>
+      <li>Email: legal@yourcalchub.com</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo"><div class="nav-logo-icon">C</div> CalcHub</a>
+      <p>Free online calculators for finance, health, math, and everyday use.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Finance</h4>
+      <a href="/mortgage-calculator">Mortgage Calculator</a>
+      <a href="/loan-calculator">Loan Calculator</a>
+      <a href="/compound-interest-calculator">Compound Interest</a>
+      <a href="/tax-calculator">Tax Calculator</a>
+    </div>
+    <div class="footer-col">
+      <h4>Health & Math</h4>
+      <a href="/bmi-calculator">BMI Calculator</a>
+      <a href="/calorie-calculator">Calorie Calculator</a>
+      <a href="/percentage-calculator">Percentage Calculator</a>
+      <a href="/age-calculator">Age Calculator</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/about">About Us</a><a href="/contact">Contact Us</a>
+      <a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Use</a>
+      <a href="/sitemap">Sitemap</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 CalcHub. All rights reserved.</span>
+    <div><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Use</a><a href="/contact">Contact</a></div>
+  </div>
+</footer>
+<script>
+  document.getElementById('hamBtn').addEventListener('click', () => {
+    document.getElementById('mobOverlay').classList.toggle('open');
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | CalcHub – Free Online Calculators</title>
+  <meta name="description" content="Learn about CalcHub — our mission to provide free, accurate, and easy-to-use online calculators for finance, health, math, and everyday use." />
+  <link rel="canonical" href="https://yourcalchub.com/about" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #f5f4f0; --surface: #ffffff; --border: #e6e2d9; --text: #181816; --muted: #78766e; --accent: #2355e8; --accent-light: #eef2fd; --radius: 13px; --shadow: 0 1px 8px rgba(0,0,0,0.06); --shadow-md: 0 4px 20px rgba(0,0,0,0.09); }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    nav { position: sticky; top: 0; z-index: 200; background: rgba(245,244,240,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); height: 58px; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; animation: slideDown 0.5s ease both; }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo-icon { width: 30px; height: 30px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.85rem; font-weight: 800; flex-shrink: 0; }
+    .nav-center { display: flex; gap: 2px; }
+    .nav-center a { text-decoration: none; color: var(--muted); font-size: 0.83rem; font-weight: 500; padding: 5px 10px; border-radius: 7px; transition: background 0.15s, color 0.15s; }
+    .nav-center a:hover { background: var(--border); color: var(--text); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 21px; height: 2px; background: var(--text); border-radius: 2px; }
+    .mob-overlay { display: none; position: fixed; inset: 0; z-index: 199; background: var(--bg); padding: 72px 20px 24px; flex-direction: column; overflow-y: auto; }
+    .mob-overlay.open { display: flex; animation: fadeUp 0.2s ease both; }
+    .mob-nav-links a { text-decoration: none; color: var(--text); font-size: 0.92rem; font-weight: 500; padding: 12px 0; border-bottom: 1px solid var(--border); display: block; }
+    .breadcrumb { max-width: 900px; margin: 0 auto; padding: 14px 20px 0; display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--muted); }
+    .breadcrumb a { color: var(--muted); text-decoration: none; } .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb span { color: var(--border); }
+
+    /* HERO */
+    .about-hero { max-width: 900px; margin: 0 auto; padding: 40px 20px 32px; text-align: center; animation: fadeUp 0.5s ease both; }
+    .page-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-light); color: var(--accent); font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 100px; margin-bottom: 12px; letter-spacing: 0.05em; }
+    .about-hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 14px; }
+    .about-hero h1 em { font-style: normal; color: var(--accent); }
+    .about-hero p { font-size: 1rem; color: var(--muted); max-width: 520px; margin: 0 auto; line-height: 1.75; }
+
+    /* STATS */
+    .stats-row { max-width: 900px; margin: 32px auto 0; padding: 0 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-align: center; animation: fadeUp 0.5s ease both; }
+    .stat-card strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 4px; }
+    .stat-card span { font-size: 0.78rem; color: var(--muted); }
+
+    /* CONTENT */
+    .about-content { max-width: 900px; margin: 28px auto 0; padding: 0 20px 64px; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .content-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px 24px; }
+    .content-box .box-icon { font-size: 1.6rem; margin-bottom: 12px; }
+    .content-box h2 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 800; margin-bottom: 10px; }
+    .content-box p { font-size: 0.86rem; color: var(--muted); line-height: 1.78; margin-bottom: 10px; }
+    .content-box p:last-child { margin-bottom: 0; }
+    .content-box ul { padding-left: 18px; }
+    .content-box li { font-size: 0.86rem; color: var(--muted); line-height: 1.78; margin-bottom: 5px; }
+
+    /* VALUES */
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+    .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 18px; }
+    .value-icon { font-size: 1.4rem; margin-bottom: 8px; }
+    .value-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 5px; }
+    .value-card p { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+
+    /* CTA */
+    .cta-box { background: var(--accent-light); border: 1px solid #bfcffd; border-radius: var(--radius); padding: 32px; text-align: center; margin-bottom: 16px; }
+    .cta-box h2 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
+    .cta-box p { font-size: 0.88rem; color: var(--muted); margin-bottom: 18px; }
+    .cta-box a { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; border-radius: 9px; padding: 11px 22px; font-size: 0.88rem; font-weight: 600; transition: background 0.18s; }
+    .cta-box a:hover { background: #1944d4; }
+
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 36px 24px 20px; }
+    .footer-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr repeat(3,1fr); gap: 28px; }
+    .footer-brand p { font-size: 0.79rem; color: var(--muted); margin-top: 9px; line-height: 1.65; max-width: 220px; }
+    .footer-col h4 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 13px; }
+    .footer-col a { display: block; font-size: 0.82rem; text-decoration: none; color: var(--text); margin-bottom: 7px; transition: color 0.15s; }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom { max-width: 1120px; margin: 24px auto 0; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.74rem; color: var(--muted); flex-wrap: wrap; gap: 8px; }
+    .footer-bottom a { color: var(--muted); text-decoration: none; margin-left: 14px; }
+    .footer-bottom a:hover { color: var(--accent); }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeUp   { from { opacity: 0; transform: translateY(18px); }  to { opacity: 1; transform: none; } }
+    @media (max-width: 860px) { .nav-center { display: none; } .hamburger { display: flex; } .stats-row { grid-template-columns: repeat(2,1fr); } .two-col { grid-template-columns: 1fr; } .values-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr 1fr; } .stats-row { grid-template-columns: repeat(2,1fr); } .values-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 440px) { .footer-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo"><div class="nav-logo-icon">C</div>CalcHub</a>
+  <div class="nav-center">
+    <a href="/#finance">Finance</a><a href="/#health">Health</a>
+    <a href="/#math">Math</a><a href="/#date">Date & Time</a><a href="/#convert">Conversions</a>
+  </div>
+  <button class="hamburger" id="hamBtn"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-overlay" id="mobOverlay">
+  <div class="mob-nav-links">
+    <a href="/">🏠 All Calculators</a><a href="/#finance">💰 Finance</a>
+    <a href="/#health">❤️ Health</a><a href="/about">About</a><a href="/contact">Contact</a>
+  </div>
+</div>
+
+<div class="breadcrumb"><a href="/">Home</a><span>›</span><span>About Us</span></div>
+
+<!-- HERO -->
+<div class="about-hero">
+  <div class="page-badge">👋 About CalcHub</div>
+  <h1>Making Every Calculation<br/><em>Simple & Free</em></h1>
+  <p>CalcHub is a free online calculator resource built to help everyone solve everyday calculations quickly and accurately — no sign-up, no fees, no complications.</p>
+</div>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat-card"><strong>150+</strong><span>Free Calculators</span></div>
+  <div class="stat-card"><strong>7</strong><span>Categories</span></div>
+  <div class="stat-card"><strong>100%</strong><span>Free Forever</span></div>
+  <div class="stat-card"><strong>0</strong><span>Sign-ups Required</span></div>
+</div>
+
+<!-- CONTENT -->
+<div class="about-content">
+
+  <div class="two-col reveal">
+    <div class="content-box">
+      <div class="box-icon">🎯</div>
+      <h2>Our Mission</h2>
+      <p>Our mission is simple: make complex calculations accessible to everyone. Whether you're a student solving a math problem, a homeowner planning a mortgage, a professional estimating ROI, or anyone in between — CalcHub has the right tool for you.</p>
+      <p>We believe everyone deserves access to accurate, easy-to-use calculators without paywalls, subscriptions, or sign-ups. That's why every single calculator on CalcHub is completely free and always will be.</p>
+    </div>
+    <div class="content-box">
+      <div class="box-icon">🛠️</div>
+      <h2>What We Build</h2>
+      <p>CalcHub covers over 150 calculators across 7 categories:</p>
+      <ul>
+        <li><strong>Finance</strong> — Mortgage, loan, tax, retirement, ROI</li>
+        <li><strong>Health</strong> — BMI, calories, body fat, pregnancy</li>
+        <li><strong>Math</strong> — Percentage, fractions, algebra, statistics</li>
+        <li><strong>Date & Time</strong> — Age, date difference, time zones</li>
+        <li><strong>Conversions</strong> — Length, weight, temperature, currency</li>
+        <li><strong>Science</strong> — Physics, chemistry, engineering</li>
+        <li><strong>Everyday</strong> — Tip, discount, fuel, GPA</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- VALUES -->
+  <div class="values-grid reveal">
+    <div class="value-card"><div class="value-icon">⚡</div><h3>Instant Results</h3><p>All calculations run live in your browser as you type. No waiting, no loading screens.</p></div>
+    <div class="value-card"><div class="value-icon">🎯</div><h3>Verified Accuracy</h3><p>Every formula is carefully researched and verified. We use the same formulas professionals use.</p></div>
+    <div class="value-card"><div class="value-icon">🔒</div><h3>Complete Privacy</h3><p>Your inputs never leave your device. We don't store, sell, or share any calculation data.</p></div>
+    <div class="value-card"><div class="value-icon">📱</div><h3>Works Everywhere</h3><p>Fully responsive design works perfectly on phone, tablet, laptop, and desktop.</p></div>
+    <div class="value-card"><div class="value-icon">🆓</div><h3>Always Free</h3><p>No premium tier. No subscription. No account needed. Everything is free, forever.</p></div>
+    <div class="value-card"><div class="value-icon">♿</div><h3>Accessible</h3><p>Built with accessibility in mind — readable fonts, clear labels, keyboard friendly.</p></div>
+  </div>
+
+  <!-- HOW WE EARN -->
+  <div class="content-box reveal" style="margin-bottom:16px;">
+    <div class="box-icon">💡</div>
+    <h2>How We Keep CalcHub Free</h2>
+    <p>CalcHub is funded entirely through advertising. We display non-intrusive ads served by Google AdSense. This allows us to cover our running costs and continue building new calculators — all without charging users a single cent.</p>
+    <p>We are committed to keeping the ad experience clean and non-disruptive. We will never display pop-ups, auto-play video ads, or deceptive advertising. Our content always comes first.</p>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-box reveal">
+    <h2>Have a suggestion or question?</h2>
+    <p>We'd love to hear from you. Whether you want to request a new calculator, report an issue, or just say hello — we're always listening.</p>
+    <a href="/contact">Get in Touch →</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo"><div class="nav-logo-icon">C</div> CalcHub</a>
+      <p>Free online calculators for finance, health, math, and everyday use.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Finance</h4>
+      <a href="/mortgage-calculator">Mortgage Calculator</a>
+      <a href="/loan-calculator">Loan Calculator</a>
+      <a href="/compound-interest-calculator">Compound Interest</a>
+      <a href="/tax-calculator">Tax Calculator</a>
+    </div>
+    <div class="footer-col">
+      <h4>Health & Math</h4>
+      <a href="/bmi-calculator">BMI Calculator</a>
+      <a href="/calorie-calculator">Calorie Calculator</a>
+      <a href="/percentage-calculator">Percentage Calculator</a>
+      <a href="/age-calculator">Age Calculator</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/about">About Us</a><a href="/contact">Contact Us</a>
+      <a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Use</a>
+      <a href="/sitemap">Sitemap</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 CalcHub. All rights reserved.</span>
+    <div><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Use</a><a href="/contact">Contact</a></div>
+  </div>
+</footer>
+<script>
+  document.getElementById('hamBtn').addEventListener('click', () => document.getElementById('mobOverlay').classList.toggle('open'));
+  const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

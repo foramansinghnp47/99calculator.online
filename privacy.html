@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy | CalcHub</title>
+  <meta name="description" content="CalcHub Privacy Policy. Learn how we collect, use, and protect your information when you use our free online calculators." />
+  <link rel="canonical" href="https://yourcalchub.com/privacy" />
+  <meta property="og:title" content="Privacy Policy | CalcHub" />
+  <meta property="og:url" content="https://yourcalchub.com/privacy" />
+  <meta property="og:site_name" content="CalcHub" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f4f0; --surface: #ffffff; --border: #e6e2d9;
+      --text: #181816; --muted: #78766e;
+      --accent: #2355e8; --accent-light: #eef2fd;
+      --radius: 13px;
+      --shadow: 0 1px 8px rgba(0,0,0,0.06);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 200; background: rgba(245,244,240,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); height: 58px; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; animation: slideDown 0.5s ease both; }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo-icon { width: 30px; height: 30px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.85rem; font-weight: 800; flex-shrink: 0; }
+    .nav-center { display: flex; gap: 2px; }
+    .nav-center a { text-decoration: none; color: var(--muted); font-size: 0.83rem; font-weight: 500; padding: 5px 10px; border-radius: 7px; transition: background 0.15s, color 0.15s; }
+    .nav-center a:hover { background: var(--border); color: var(--text); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 21px; height: 2px; background: var(--text); border-radius: 2px; }
+    .mob-overlay { display: none; position: fixed; inset: 0; z-index: 199; background: var(--bg); padding: 72px 20px 24px; flex-direction: column; overflow-y: auto; }
+    .mob-overlay.open { display: flex; animation: fadeUp 0.2s ease both; }
+    .mob-nav-links a { text-decoration: none; color: var(--text); font-size: 0.92rem; font-weight: 500; padding: 12px 0; border-bottom: 1px solid var(--border); display: block; }
+
+    /* BREADCRUMB */
+    .breadcrumb { max-width: 800px; margin: 0 auto; padding: 14px 20px 0; display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--muted); }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb span { color: var(--border); }
+
+    /* PAGE */
+    .page-wrap { max-width: 800px; margin: 0 auto; padding: 28px 20px 64px; }
+    .page-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-light); color: var(--accent); font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 100px; margin-bottom: 12px; letter-spacing: 0.05em; }
+    .page-wrap h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 8px; animation: fadeUp 0.5s ease both; }
+    .last-updated { font-size: 0.78rem; color: var(--muted); margin-bottom: 32px; }
+
+    .content-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 32px; box-shadow: var(--shadow); animation: fadeUp 0.5s 0.05s ease both; }
+    .content-card h2 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 800; margin: 28px 0 10px; color: var(--text); }
+    .content-card h2:first-child { margin-top: 0; }
+    .content-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+    .content-card ul, .content-card ol { padding-left: 20px; margin-bottom: 12px; }
+    .content-card li { font-size: 0.88rem; color: var(--muted); line-height: 1.8; margin-bottom: 4px; }
+    .content-card a { color: var(--accent); text-decoration: none; }
+    .content-card a:hover { text-decoration: underline; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+    .highlight-box { background: var(--accent-light); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 14px 16px; margin: 16px 0; }
+    .highlight-box p { color: var(--text); margin-bottom: 0; font-size: 0.85rem; }
+
+    /* FOOTER */
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 36px 24px 20px; }
+    .footer-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr repeat(3,1fr); gap: 28px; }
+    .footer-brand p { font-size: 0.79rem; color: var(--muted); margin-top: 9px; line-height: 1.65; max-width: 220px; }
+    .footer-col h4 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 13px; }
+    .footer-col a { display: block; font-size: 0.82rem; text-decoration: none; color: var(--text); margin-bottom: 7px; transition: color 0.15s; }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom { max-width: 1120px; margin: 24px auto 0; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.74rem; color: var(--muted); flex-wrap: wrap; gap: 8px; }
+    .footer-bottom a { color: var(--muted); text-decoration: none; margin-left: 14px; }
+    .footer-bottom a:hover { color: var(--accent); }
+
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeUp   { from { opacity: 0; transform: translateY(18px); }  to { opacity: 1; transform: none; } }
+
+    @media (max-width: 860px) { .nav-center { display: none; } .hamburger { display: flex; } }
+    @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr 1fr; } .content-card { padding: 20px; } }
+    @media (max-width: 440px) { .footer-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><div class="nav-logo-icon">C</div>CalcHub</a>
+  <div class="nav-center">
+    <a href="/#finance">Finance</a><a href="/#health">Health</a>
+    <a href="/#math">Math</a><a href="/#date">Date & Time</a><a href="/#convert">Conversions</a>
+  </div>
+  <button class="hamburger" id="hamBtn"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-overlay" id="mobOverlay">
+  <div class="mob-nav-links">
+    <a href="/">🏠 All Calculators</a><a href="/#finance">💰 Finance</a>
+    <a href="/#health">❤️ Health</a><a href="/#math">📐 Math</a>
+    <a href="/about">About</a><a href="/contact">Contact</a>
+  </div>
+</div>
+
+<div class="breadcrumb">
+  <a href="/">Home</a><span>›</span><span>Privacy Policy</span>
+</div>
+
+<div class="page-wrap">
+  <div class="page-badge">📋 Legal</div>
+  <h1>Privacy Policy</h1>
+  <p class="last-updated">Last updated: May 21, 2026</p>
+
+  <div class="content-card">
+    <div class="highlight-box">
+      <p><strong>Summary:</strong> CalcHub does not collect personal information. All calculations run entirely in your browser. We do not store your inputs or results. We use Google AdSense and Google Analytics, which may use cookies as described below.</p>
+    </div>
+
+    <h2>1. Introduction</h2>
+    <p>Welcome to CalcHub ("we", "us", or "our"). We operate the website located at yourcalchub.com. This Privacy Policy explains how we handle information when you visit our website and use our free online calculators.</p>
+    <p>By using CalcHub, you agree to the practices described in this Privacy Policy. If you do not agree, please discontinue use of our website.</p>
+
+    <hr class="divider" />
+
+    <h2>2. Information We Do Not Collect</h2>
+    <p>CalcHub is designed with your privacy in mind. We do <strong>not</strong> collect:</p>
+    <ul>
+      <li>Any numbers, figures, or data you enter into our calculators</li>
+      <li>Your calculation results</li>
+      <li>Your name, email address, or any personal identifying information</li>
+      <li>Payment or financial information of any kind</li>
+      <li>Account credentials (we have no accounts or sign-ups)</li>
+    </ul>
+    <p>All calculator inputs and outputs are processed entirely within your browser and are never transmitted to our servers.</p>
+
+    <hr class="divider" />
+
+    <h2>3. Information We Collect Automatically</h2>
+    <p>Like most websites, we collect certain non-personal technical information automatically when you visit:</p>
+    <ul>
+      <li><strong>Log data:</strong> IP address, browser type, pages visited, time and date of visit, referring URLs</li>
+      <li><strong>Device information:</strong> Device type, operating system, screen resolution</li>
+      <li><strong>Usage data:</strong> Which calculators are used, how long pages are viewed</li>
+    </ul>
+    <p>This information is collected in aggregate and cannot be used to identify you personally. It helps us improve our calculators and understand which tools are most useful.</p>
+
+    <hr class="divider" />
+
+    <h2>4. Cookies</h2>
+    <p>CalcHub uses cookies for the following purposes:</p>
+    <ul>
+      <li><strong>Analytics cookies:</strong> Google Analytics uses cookies to help us understand website traffic and usage patterns. These cookies do not contain personal information.</li>
+      <li><strong>Advertising cookies:</strong> Google AdSense uses cookies to show relevant advertisements. These cookies may track your browsing habits across websites to display more relevant ads.</li>
+      <li><strong>Preference cookies:</strong> We may use cookies to remember your preferences such as calculator settings.</li>
+    </ul>
+    <p>You can control cookies through your browser settings. Disabling cookies may affect website functionality. To opt out of Google Analytics, visit <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">tools.google.com/dlpage/gaoptout</a>.</p>
+
+    <hr class="divider" />
+
+    <h2>5. Google AdSense & Advertising</h2>
+    <p>We use Google AdSense to display advertisements on our website. Google AdSense is a third-party advertising service operated by Google LLC. Google uses cookies and web beacons to serve ads based on your prior visits to our website and other sites on the internet.</p>
+    <p>You may opt out of personalised advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google's Ads Settings</a>. For more information on how Google uses data, visit <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">Google's Privacy & Terms</a>.</p>
+
+    <hr class="divider" />
+
+    <h2>6. Google Analytics</h2>
+    <p>We use Google Analytics to understand how visitors use our website. Google Analytics collects anonymised data such as pages visited, time on site, and browser type. This data is processed by Google in accordance with their Privacy Policy. No personally identifiable information is shared with Google Analytics.</p>
+
+    <hr class="divider" />
+
+    <h2>7. Third-Party Links</h2>
+    <p>Our website may contain links to third-party websites. We are not responsible for the privacy practices of those websites. We encourage you to review the privacy policy of any third-party website you visit.</p>
+
+    <hr class="divider" />
+
+    <h2>8. Children's Privacy</h2>
+    <p>CalcHub is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe a child under 13 has provided personal information on our website, please contact us and we will take steps to remove that information.</p>
+
+    <hr class="divider" />
+
+    <h2>9. Data Security</h2>
+    <p>Since we do not collect personal data, there is minimal security risk to your personal information. Our website uses HTTPS encryption for all pages. However, no method of internet transmission is 100% secure.</p>
+
+    <hr class="divider" />
+
+    <h2>10. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. When we do, we will update the "Last updated" date at the top of this page. We encourage you to review this policy periodically. Continued use of CalcHub after changes constitutes acceptance of the updated policy.</p>
+
+    <hr class="divider" />
+
+    <h2>11. Contact Us</h2>
+    <p>If you have any questions about this Privacy Policy, please contact us:</p>
+    <ul>
+      <li>Website: <a href="/contact">yourcalchub.com/contact</a></li>
+      <li>Email: privacy@yourcalchub.com</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo"><div class="nav-logo-icon">C</div> CalcHub</a>
+      <p>Free online calculators for finance, health, math, and everyday use.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Finance</h4>
+      <a href="/mortgage-calculator">Mortgage Calculator</a>
+      <a href="/loan-calculator">Loan Calculator</a>
+      <a href="/compound-interest-calculator">Compound Interest</a>
+      <a href="/tax-calculator">Tax Calculator</a>
+    </div>
+    <div class="footer-col">
+      <h4>Health & Math</h4>
+      <a href="/bmi-calculator">BMI Calculator</a>
+      <a href="/calorie-calculator">Calorie Calculator</a>
+      <a href="/percentage-calculator">Percentage Calculator</a>
+      <a href="/age-calculator">Age Calculator</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/about">About Us</a>
+      <a href="/contact">Contact Us</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Use</a>
+      <a href="/sitemap">Sitemap</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 CalcHub. All rights reserved.</span>
+    <div><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Use</a><a href="/contact">Contact</a></div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('hamBtn').addEventListener('click', () => {
+    document.getElementById('mobOverlay').classList.toggle('open');
+  });
+</script>
+</body>
+</html>
